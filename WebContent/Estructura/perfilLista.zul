@@ -1,0 +1,37 @@
+<?page title="Lista de Perfiles" contentType="text/html;charset=UTF-8"?>
+<?init class="org.zkoss.zkplus.databind.AnnotateDataBinderInit" arg0="./winListaPerfiles" ?>
+<zk>
+	<window id="winListaPerfiles" width="100%" vflex="1" border="normal"
+		apply="ec.edu.upse.lista.PerfilLista" position="center"
+		style="padding: 0 0 0 0;background:#050846;">
+		<caption label="Lista de Perfiles" height="25px"
+			style="background:#050846; color:white; font-size:20px; text-indent:15px"
+			sclass="p-1 mb text-white font-italic font-weight-bold font-color:white" />
+		<vlayout vflex="1">
+
+			<hlayout>
+				<textbox id="txtBuscar" hflex="1" />
+				<button id="btnBuscar" label="" iconSclass="z-icon-search"
+					zclass="btn btn-outline-primary btn btn-sm" />
+			</hlayout>
+			<hlayout vflex="1" hflex="1">
+				<listbox id="lstPerfiles" model="@{winListaPerfiles$composer.perfiles}"
+					selectedItem="@{winListaPerfiles$composer.perfilSeleccionado}"
+					hflex="1" vflex="1">
+					<listhead>
+						<listheader label="NombrePerfil" />
+						<listheader label="Descripcion" />
+					</listhead>
+					<template name="model">
+						<listitem>
+							<listcell label="${each.nombre}" />
+							<listcell label="${each.descripcion}" />
+						</listitem>
+					</template>
+				</listbox>
+			</hlayout>
+		</vlayout>
+
+	</window>
+
+</zk>

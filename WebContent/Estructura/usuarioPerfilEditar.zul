@@ -1,0 +1,45 @@
+<zk>
+	<window id="winUPE" border="normal" width="500px"
+		apply="ec.edu.upse.editar.UsuarioPerfilEditar" style="padding: 0 0 0 0;background:#050846;"
+		position="center">
+		<caption label="Usuario - Perfiles" height="20px"
+			style="background:050846; font-size:20px; color:white; text-indent:15px;"
+			sclass="p-1 mb text-white font-italic font-weight-bold" />
+		<vlayout>
+			<grid>
+				<columns>
+					<column align="right" hflex="min" />
+					<column align="left" hflex="1" />
+				</columns>
+				<rows>
+					<row>
+						<label value="Usuario : * " style="font-size:15px" />
+						<combobox placeholder="Seleccione usuario"
+							model="@{winUPE$composer.usuarioperfiles}" selectedItem="@{winUPE$composer.usuarioperfil.usuario}"
+							value="@{winUPE$composer.usuarioperfil.usuario.usuario}" width="200px">
+							<template name="model">
+								<comboitem label="${each.usuario}" />
+							</template>
+						</combobox>
+					</row>
+					<row>
+						<label value="Perfil : * " style="font-size:15px" />
+						<combobox placeholder="Seleccione perfil"
+							model="@{winUPE$composer.usuarioperfiles}" selectedItem="@{winUPE$composer.usuarioperfil.perfil}"
+							value="@{winUPE$composer.usuarioperfil.perfil.nombre}" width="200px">
+							<template name="model">
+								<comboitem label="${each.nombre}" />
+							</template>
+						</combobox>
+					</row>
+				</rows>
+			</grid>
+			<hlayout>
+				<button id="grabar" label="Grabar" iconSclass="z-icon-save"
+					zclass="btn btn-outline-primary btn btn-sm" />
+				<button id="salir" label="Salir" iconSclass="z-icon-sign-out"
+					zclass="btn btn-outline-primary btn btn-sm" />
+			</hlayout>
+		</vlayout>
+	</window>
+</zk>

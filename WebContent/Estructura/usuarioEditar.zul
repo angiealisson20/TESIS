@@ -1,0 +1,63 @@
+<?init class="org.zkoss.zkplus.databind.AnnotateDataBinderInit" arg0="./winUsuarioEditar" ?>
+<?page title="" contentType="text/html;charset=UTF-8"?>
+<zk>
+	<window id="winUsuarioEditar" border="normal" width="400px"
+		apply="ec.edu.upse.editar.UsuarioEditar" style="padding: 0 0 0 0;background:#050846;"
+		position="center">
+		<caption label="Ingrese datos" height="20px"
+			style="background:050846; font-size:20px; color:white; text-indent:15px;"
+			sclass="p-1 mb text-white font-italic font-weight-bold" />
+		<vlayout>
+			<grid>
+				<columns>
+					<column align="right" hflex="min" />
+					<column align="left" hflex="1" />
+				</columns>
+				<rows>
+
+					<row>
+						<label value="Nombres : * " style="font-size:15px" />
+						<textbox id="nombres" xmlns:w="client" height="30px"
+							value="@{winUsuarioEditar$composer.usuario.nombres}" width="250px"
+							style="font-size:15px" constraint="no empty: Por favor ingrese su nombre completo."
+							maxlength="255" />
+					</row>
+					<row>
+						<label value="Apellidos : * " style="font-size:15px" />
+						<textbox id="apellidos" height="30px"
+							value="@{winUsuarioEditar$composer.usuario.apellidos}" style="font-size:15px"
+							width="250px" constraint="no empty: Debe ingresar los apellidos."
+							maxlength="255" />
+					</row>
+
+					<row>
+						<label value="Correo : *" style="font-size:15px" />
+						<textbox id="correo" height="30px" style="font-size:15px"
+							value="@{winUsuarioEditar$composer.usuario.correo}" width="250px"
+							maxlength="255" />
+					</row>
+					<row>
+						<label value="Usuario : * " style="font-size:15px" />
+						<textbox id="nombUsuario" height="30px" style="font-size:15px"
+							value="@{winUsuarioEditar$composer.usuario.usuario}" width="250px"
+							constraint="no empty: Debe ingresar su nuevo usuario de identificación."
+							maxlength="255" />
+					</row>
+					<row>
+						<label value="Clave : * " style="font-size:15px" />
+						<textbox id="clave" type="password" style="font-size:15px"
+							height="30px" value="@{winUsuarioEditar$composer.usuario.clave}"
+							width="250px" constraint="no empty: Debe ingresar la nueva clave de acceso."
+							maxlength="255" />
+					</row>
+				</rows>
+			</grid>
+			<hlayout spacing="6px" valign="middle">
+				<button id="grabar" label="Grabar" style="align:center"
+					iconSclass="z-icon-save" sclass="btn btn-outline-primary btn btn-sm" />
+				<button id="salir" label="Salir" iconSclass="z-icon-sign-out"
+					sclass="btn btn-outline-primary btn btn-sm" />
+			</hlayout>
+		</vlayout>
+	</window>
+</zk>

@@ -1,0 +1,11 @@
+<div hflex="1" vflex="1"
+	style="background-color:#102d35; color: white; padding: 0px 0px;">
+	<hbox hflex="1" vflex="1" align="center">
+		<div>
+			<a href="http://www.jfk.edu.ec/" target="_blank">
+				<image src="/img/SISTEMA.png" width="1300px" />
+			</a>
+		</div>
+
+	</hbox>
+</div>

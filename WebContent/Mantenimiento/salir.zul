@@ -1,0 +1,30 @@
+<?page title="" contentType="text/html;charset=UTF-8"?>
+<?script src="/webjars/bootstrap/4.0.0/js/bootstrap.min.js" ?>
+<?link rel="stylesheet" href="/webjars/bootstrap/4.0.0/css/bootstrap.min.css" ?>
+<zk>
+	<vlayout>
+		<label
+			style="display: flex; justify-content: center; align-items: center; text-decoration: underline red; font-size: 20px">
+			Usuario en el sistema
+		</label>
+		<hlayout sclass="z-valign-center" spacing="24px">
+			<image src="/img/user.png" height="40px"
+				style="display: flex; align-items: center; justify-content: center;" />
+			<label value="@load(vm.nombreUsuario)"
+				style="margin-top: 15%;
+				font-size: 18px; outline: none; display: flex; 
+				align-items: center; justify-content: center;" />
+			<h:form id="f" name="f" action="j_spring_security_logout"
+				method="POST" xmlns:h="native">
+				<html>
+					<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+				</html>
+				<button label="Salir" type="submit" sclass="btn btn-outline-success"
+					style="color: #fff; font-size: 12px; background: #C40430; cursor: pointer;
+				border-radius: 25px; border: none; outline: none; margin-top: 18%; 
+				display: flex; align-items: center; justify-content: center;" />
+			</h:form>
+		</hlayout>
+	</vlayout>
+</zk>
+

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence version="2.1"
+	xmlns="http://xmlns.jcp.org/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
+	<persistence-unit name="APP-ASIS1" transaction-type="RESOURCE_LOCAL">
+		<class>ec.edu.upse.modelo.Opcion</class>
+		<class>ec.edu.upse.modelo.Opcionperfil</class>
+		<class>ec.edu.upse.modelo.Perfil</class>
+		<class>ec.edu.upse.modelo.TblSgaAsistencia</class>
+		<class>ec.edu.upse.modelo.TblSgaCurso</class>
+		<class>ec.edu.upse.modelo.TblSgaDia</class>
+		<class>ec.edu.upse.modelo.TblSgaDistributivo</class>
+		<class>ec.edu.upse.modelo.TblSgaDocente</class>
+		<class>ec.edu.upse.modelo.TblSgaEspaciofisico</class>
+		<class>ec.edu.upse.modelo.TblSgaEstadoA</class>
+		<class>ec.edu.upse.modelo.TblSgaEstudiante</class>
+		<class>ec.edu.upse.modelo.TblSgaHora</class>
+		<class>ec.edu.upse.modelo.TblSgaHorario</class>
+		<class>ec.edu.upse.modelo.TblSgaJustifA</class>
+		<class>ec.edu.upse.modelo.TblSgaJustificacion</class>
+		<class>ec.edu.upse.modelo.TblSgaMateria</class>
+		<class>ec.edu.upse.modelo.TblSgaMatricula</class>
+		<class>ec.edu.upse.modelo.TblSgaNivel</class>
+		<class>ec.edu.upse.modelo.TblSgaParalelo</class>
+		<class>ec.edu.upse.modelo.Usuario</class>
+		<class>ec.edu.upse.modelo.Usuarioperfil</class>
+		<class>ec.edu.upse.modelo.TblSgaCursoparalelo</class>
+		<class>ec.edu.upse.modelo.TblSgaMatcurso</class>
+		<class>ec.edu.upse.modelo.TblSgaPeriodolectivo</class>
+		<class>ec.edu.upse.modelo.TblSgaPeriodoncurso</class>
+		<class>ec.edu.upse.modelo.TblSgaPeriodonivel</class>
+		<properties>
+			<property name="javax.persistence.jdbc.url" value="jdbc:postgresql://localhost:5432/base1" />
+			<property name="javax.persistence.jdbc.user" value="postgres" />
+			<property name="javax.persistence.jdbc.password" value="angie1234" />
+			<property name="javax.persistence.jdbc.driver" value="org.postgresql.Driver" />
+		</properties>
+	</persistence-unit>
+</persistence>
