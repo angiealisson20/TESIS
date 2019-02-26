@@ -1,24 +1,4 @@
-<zk>
-	<borderlayout hflex="1" vflex="1"
-		apply="org.zkoss.bind.BindComposer" viewModel="@id('vm') @init('ec.edu.upse.controlador.MenuControlador')">
-		<north height="130px" border="none">
-			<include src="/Mantenimiento/banner.zul" />
-		</north>
-		<west width="210px" border="none" collapsible="true" minsize="300">
-			<borderlayout hflex="1" vflex="1">
-				<north maxsize="100" size="20%">
-					<include src="/Mantenimiento/salir.zul" />
-				</north>
-				<south maxsize="500" size="80%">
-					<include src="/Mantenimiento/menu.zul" />
-				</south>
-			</borderlayout>
-		</west>
-		<center id="mainContent" autoscroll="true">
-			<include src="@bind(vm.formularioActual)" />
-		</center>
-		<south height="50px" border="none">
-			<include src="/Mantenimiento/footer.zul" />
-		</south>
-	</borderlayout>
-</zk>
+<?page title="" contentType="text/html;charset=UTF-8"?> 
+<div apply="org.zkoss.bind.BindComposer"
+	 viewModel="@id('vm') @init('ec.edu.upse.controlador.Index')"> 
+</div> 

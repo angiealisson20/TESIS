@@ -11,7 +11,10 @@ import java.util.List;
  */
 @Entity
 @Table(name="tbl_sga_periodoncurso")
-@NamedQuery(name="TblSgaPeriodoncurso.findAll", query="SELECT t FROM TblSgaPeriodoncurso t")
+@NamedQueries({
+	@NamedQuery(name="TblSgaPeriodoncurso.findAll", query="SELECT t FROM TblSgaPeriodoncurso t"),
+	@NamedQuery(name="TblSgaPeriodoncurso.buscarPorNivel", query="SELECT t FROM TblSgaPeriodoncurso t where t.tblSgaPeriodonivel.tblSgaNivel.nivelId = :idNivel")
+})
 public class TblSgaPeriodoncurso implements Serializable {
 	private static final long serialVersionUID = 1L;
 

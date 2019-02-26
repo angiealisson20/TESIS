@@ -1,0 +1,30 @@
+<zk>
+	<window id="winHorario" title="new page title" border="normal">
+		<div apply="ec.edu.upse.lista.HorarioLista">
+			<vlayout>
+				<vlayout>
+					<label value="" />
+					<button id="btnBuscar" label=""
+						iconSclass="z-icon-search" />
+				</vlayout>
+
+				<grid id="grHorario"
+					model="${winHorario$composer.dias}">
+					<columns>
+						<column width="40px" />
+						<column label="Dias" sort="auto(name)" />
+					</columns>
+					<template name="model">
+						<group label="${each.diaDescripcion}" />
+					</template>
+					<template name="model">
+						<row>
+							<label value="hhhh" />
+						</row>
+					</template>
+				</grid>
+			</vlayout>
+		</div>
+
+	</window>
+</zk>

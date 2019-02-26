@@ -189,6 +189,9 @@ public class UsuarioEditar extends SelectorComposer {
 					usuario = (Usuario) usuarioDao.getEntityManager().merge(usuario);
 					usuario.setClave(encriptar(clave.getText()));				
 				}
+				if(usuario.getEstado()==null)
+					usuario.setEstado("A");
+					
 
 				// Cierra la transaccion.
 				usuarioDao.getEntityManager().getTransaction().commit();

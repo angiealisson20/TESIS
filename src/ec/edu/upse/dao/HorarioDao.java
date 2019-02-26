@@ -7,10 +7,11 @@ import javax.persistence.Query;
 
 import ec.edu.upse.modelo.TblSgaCursoparalelo;
 import ec.edu.upse.modelo.TblSgaHorario;
+import ec.edu.upse.modelo.TblSgaPeriodonivel;
 import ec.edu.upse.modelo.Usuario;
 
 public class HorarioDao extends ClaseDao {
-	
+
 	@SuppressWarnings("unchecked")
 	public List<TblSgaHorario> getHorarios() {
 		List<TblSgaHorario> horarios = new ArrayList<TblSgaHorario>();
@@ -20,7 +21,26 @@ public class HorarioDao extends ClaseDao {
 
 		return horarios;
 	}
+
+
+	@SuppressWarnings("unchecked")
+	public List<TblSgaHorario> getObtenerConsulta(Integer idPeriodo,  Integer idNivel, Integer idCurso, Integer idParalelo){
+		List<TblSgaHorario> resultado;
+		Query query = getEntityManager().createNamedQuery("TblSgaHorario.BuscaPorConsulta");
+		query.setHint("javax.persistence.cache.storeMode", "REFRESH");
+		query.setParameter("idParalelo", idParalelo);
+		query.setParameter("idPeriodo", idPeriodo);
+		query.setParameter("idCurso", idCurso);
+		query.setParameter("idNivel", idNivel);
+		resultado = (List<TblSgaHorario>) query.getResultList();
+
+		return resultado;
+	}
 	
+	
+	
+	
+
 	@SuppressWarnings("unchecked")
 	public List<TblSgaHorario> getHorarios(String value) {
 		List<TblSgaHorario> resultado; 
@@ -38,45 +58,12 @@ public class HorarioDao extends ClaseDao {
 		query.setParameter("patron", patron);
 
 		resultado = (List<TblSgaHorario>) query.getResultList();
-		
+
 		return resultado;
 	}
-	
-	@SuppressWarnings("unchecked")
-	public List<TblSgaHorario> getCursosRegistrados(TblSgaCursoparalelo cursoparalelo){
-		List<TblSgaHorario> resultado;
-		
-		try{
-			Query query = getEntityManager().createNamedQuery("TblSgaHorario.cursosRegistrados");
-			query.setHint("javax.persistence.cache.storeMode", "REFRESH");
-			query.setParameter("cursoparalelo", cursoparalelo);
-			resultado = (List<TblSgaHorario>) query.getResultList();
-			return resultado;
-		} catch (Exception e) {
-			e.printStackTrace();
-			return null;
-		}
-		
-	}
-	
-	/*
-	 * 
-	 * public List<Opcion> getOpcionesDisponibles(Perfil perfil) {
-		List<Opcion> resultado; 
-		try {			
-			Query query = getEntityManager().createNamedQuery("Opcion.opcionesDisponibles");
-			query.setHint("javax.persistence.cache.storeMode", "REFRESH");
-			query.setParameter("perfil", perfil);
-			resultado = (List<Opcion>) query.getResultList();
-			return resultado;
-		} catch (Exception e) {
-			e.printStackTrace();
-			return null;
-		}
-	}
-	 * 
-	 */
-	
-	
+
+
+
+
 
 }

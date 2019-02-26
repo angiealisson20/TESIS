@@ -10,7 +10,31 @@ import java.util.List;
  * 
  */
 @Entity
-@NamedQuery(name="Opcion.findAll", query="SELECT o FROM Opcion o")
+@NamedQueries({
+@NamedQuery(name="Opcion.findAll", query="SELECT o FROM Opcion o"),
+@NamedQuery(name="Opcion.opcionPorPerfilPadre", query="SELECT o  FROM Opcion o WHERE o.idOpcionPadre IS NULL "
+		+ " AND o.idOpcion IN (SELECT a.opcion.idOpcion FROM Opcionperfil a WHERE a.perfil.idPerfil = :perfil) ORDER BY o.titulo"),
+
+@NamedQuery(name="Opcion.opcionPorPerfilHijo", query="SELECT o  FROM Opcion o WHERE o.idOpcionPadre IS NOT NULL "
+		+ " AND o.idOpcionPadre = :opcionPadre AND o.idOpcion IN (SELECT a.opcion.idOpcion FROM Opcionperfil a WHERE a.perfil.idPerfil = :perfil) ORDER BY o.titulo"),
+
+//@NamedQuery(name="Opcion.opcionPadrePorHijo", query="SELECT o  FROM Opcion o WHERE o.idOpcionPadre IS NOT NULL "
+	//	+ " AND o.idOpcionPadre = ?1 ORDER BY o.titulo"),
+
+//@NamedQuery(name="Opcion.opcionPadrePorHijo", query="SELECT o  FROM Opcion o WHERE o.idOpcionPadre = (:idOpcionPadre)  "),
+
+@NamedQuery(name="Opcion.opcionPadreHijo", query="SELECT o  FROM Opcion o WHERE o.idOpcionPadre IS NOT NULL "
+		+ " AND o.idOpcionPadre = :idOpcionPadre ORDER BY o.titulo"),
+
+
+@NamedQuery(name="Opcion.opcionPadre", query="SELECT o  FROM Opcion o WHERE o.idOpcionPadre IS NULL "
+		+ " ORDER BY o.titulo"),
+
+@NamedQuery(name="Opcion.opcionesDisponibles", query="SELECT o  FROM Opcion o WHERE "
+		+ "  o.idOpcion NOT IN (SELECT a.opcion.idOpcion FROM Opcionperfil a WHERE a.perfil = :perfil) ORDER BY o.titulo"),
+
+@NamedQuery(name="Opcion.opcDisp", query="SELECT o  FROM Opcion o WHERE LOWER(o.titulo) LIKE LOWER(:patron)")
+})
 public class Opcion implements Serializable {
 	private static final long serialVersionUID = 1L;
 

@@ -14,6 +14,7 @@ import ec.edu.upse.dao.UsuarioDao;
 import ec.edu.upse.modelo.Usuario;
 import ec.edu.upse.modelo.Usuarioperfil;
 
+
 public class ServicioAutenticacion  implements UserDetailsService {
 	
 	@Override
@@ -25,6 +26,9 @@ public class ServicioAutenticacion  implements UserDetailsService {
 		List<GrantedAuthority> privilegios; 
 		
 		usuario = usuarioDAO.getUsuario(nombreUsuario);
+		
+		Context.getInstance().setIdUsuarioLogeado(usuario.getIdUsuario()); //*
+		
 		privilegios = obtienePrivilegios(usuario);
 		
 		// Construye un objeto de Spring en base a los datos del usuario de la base de datos.

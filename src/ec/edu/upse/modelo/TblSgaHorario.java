@@ -12,7 +12,14 @@ import java.util.List;
  */
 @Entity
 @Table(name="tbl_sga_horario")
-@NamedQuery(name="TblSgaHorario.findAll", query="SELECT t FROM TblSgaHorario t")
+@NamedQueries({
+	@NamedQuery(name="TblSgaHorario.findAll", query="SELECT t FROM TblSgaHorario t"),
+	@NamedQuery(name="TblSgaHorario.BuscaPorConsulta", query="SELECT t FROM TblSgaHorario t "
+			+ "where t.tblSgaCursoparalelo.tblSgaPeriodoncurso.tblSgaPeriodonivel.tblSgaPeriodolectivo.perId = :idPeriodo and "
+			+ "t.tblSgaCursoparalelo.tblSgaPeriodoncurso.tblSgaPeriodonivel.tblSgaNivel.nivelId = :idNivel and "
+			+ "t.tblSgaCursoparalelo.tblSgaPeriodoncurso.tblSgaCurso.curId = :idCurso and t.tblSgaCursoparalelo.tblSgaParalelo.paralId = :idParalelo")
+})
+
 public class TblSgaHorario implements Serializable {
 	private static final long serialVersionUID = 1L;
 

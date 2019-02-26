@@ -5,71 +5,123 @@ import java.util.List;
 
 import javax.persistence.Query;
 
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.User;
+
 
 import ec.edu.upse.modelo.Opcion;
-import ec.edu.upse.modelo.Opcionperfil;
-import ec.edu.upse.modelo.Usuario;
-import ec.edu.upse.modelo.Usuarioperfil;
+import ec.edu.upse.modelo.Perfil;
 
+@SuppressWarnings("unchecked")
 public class OpcionDao extends ClaseDao {
 	
-	/**
-	 * Retorna la lista de opciones disponibles.
-	 * @return
-	 */
-	@SuppressWarnings("unchecked")
-	public List<Opcion> getOpciones() {
-		List<Opcion> opciones = new ArrayList<Opcion>();
-
-		Query query = getEntityManager().createNamedQuery("Opcion.findAll");
-		opciones = (List<Opcion>) query.getResultList();
-
-		return opciones;
-	}
 	
 	/**
-	 * Retorna la lista de opciones disponibles filtradas por 
-	 * los privilegios del usuario
+	 * RETORNA LA LISTA DE OPCIONES PADRES  DE ACUERDO AL ROL DEL USUARIO
+	 * @param value
 	 * @return
 	 */
-	@SuppressWarnings("unchecked")
-	public List<Opcion> getOpcionesFiltradas() {
-		UsuarioDao usuarioDAO = new UsuarioDao();
-		List<Opcion> opciones = new ArrayList<Opcion>();
-		List<Opcion> retorno = new ArrayList<Opcion>();
-
-		Query query = getEntityManager().createNamedQuery("Opcion.findAll");
-		opciones = (List<Opcion>) query.getResultList();
-
-		// Obtiene el usuario logoneado
-		User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-
-		// Busco el usuario en la base
-		Usuario usuario = usuarioDAO.getUsuario(user.getUsername()); 
-
-		// Filtra solo las opciones a las que tiene acceso el usuario.
-		for (Opcion opcion : opciones) {
-			// Por cada opcion, verifica si esta asignada a 
-			// algun privilegio que tenga el usuario.
-			boolean opcionInsertada = false; 
-			for (Opcionperfil opcionPerfil : opcion.getOpcionperfils()) {
-				for (Usuarioperfil usuarioPerfil : usuario.getUsuarioperfils()) {
-					if (opcionPerfil.getPerfil().getIdPerfil() == usuarioPerfil.getPerfil().getIdPerfil()) {
-						retorno.add(opcion);
-						opcionInsertada = true; 
-						break;
-					}
-				}
-				if (opcionInsertada) {
-					break;
-				}
-			}
+	public List<Opcion> getOpcionPadrePorPerfil(Integer perfil) {
+		List<Opcion> resultado; 
+		try {			
+			Query query = getEntityManager().createNamedQuery("Opcion.opcionPorPerfilPadre");
+			query.setHint("javax.persistence.cache.storeMode", "REFRESH");
+			query.setParameter("perfil", perfil);
+			resultado = (List<Opcion>) query.getResultList();
+			return resultado;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
 		}
-
+	}
+	
+	public List<Opcion> getOpcionPadrePorHijo(Integer idOpcionPadre) {
+		List<Opcion> resultado; 
+		try {			
+			Query query = getEntityManager().createNamedQuery("Opcion.opcionPadrePorHijo");
+			query.setHint("javax.persistence.cache.storeMode", "REFRESH");
+			query.setParameter("idOpcionPadre", idOpcionPadre);
+			resultado = (List<Opcion>) query.getResultList();
+			return resultado;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+	
+	public List<Opcion> getOpcionPadreHijo(Integer idOpcionPadre) {
+		List<Opcion> resultado; 
+		try {			
+			Query query = getEntityManager().createNamedQuery("Opcion.opcionPadreHijo");
+			query.setHint("javax.persistence.cache.storeMode", "REFRESH");
+			query.setParameter("idOpcionPadre", idOpcionPadre);
+			//query.setParameter("perfil", perfil);
+			resultado = (List<Opcion>) query.getResultList();
+			return resultado;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+	
+	
+	/**
+	 * RETORNA LA LISTA DE OPCIONES HIJOS DE ACUERDO AL ROL DEL USUARIO
+	 * @param value
+	 * @return
+	 */
+	public List<Opcion> getOpcionHijoPorPerfil(Integer opcionPadre,Integer perfil) {
+		List<Opcion> resultado; 
+		try {			
+			Query query = getEntityManager().createNamedQuery("Opcion.opcionPorPerfilHijo");
+			query.setHint("javax.persistence.cache.storeMode", "REFRESH");
+			query.setParameter("opcionPadre", opcionPadre);
+			query.setParameter("perfil", perfil);
+			resultado = (List<Opcion>) query.getResultList();
+			return resultado;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+	}	
+	public List<Opcion> getOpcion() {
+		List<Opcion> retorno = new ArrayList<Opcion>();  
+		Query query = getEntityManager().createNamedQuery("Opcion.findAll");
+		retorno = (List<Opcion>) query.getResultList();
 		return retorno;
 	}
-
+	
+	public List<Opcion> getOpcionPadre() {
+		List<Opcion> retorno = new ArrayList<Opcion>();  
+		Query query = getEntityManager().createNamedQuery("Opcion.opcionPadre");
+		retorno = (List<Opcion>) query.getResultList();
+		return retorno;
+	}
+	
+	public List<Opcion> getOpcionesDisponibles(Perfil perfil) {
+		List<Opcion> resultado; 
+		try {			
+			Query query = getEntityManager().createNamedQuery("Opcion.opcionesDisponibles");
+			query.setHint("javax.persistence.cache.storeMode", "REFRESH");
+			query.setParameter("perfil", perfil);
+			resultado = (List<Opcion>) query.getResultList();
+			return resultado;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+	
+	public List<Opcion> getOpcDisp(Opcion opc) {
+		List<Opcion> resultado; 
+		try {			
+			Query query = getEntityManager().createNamedQuery("Opcion.opcDisp");
+			query.setHint("javax.persistence.cache.storeMode", "REFRESH");
+			query.setParameter("opc", opc);
+			resultado = (List<Opcion>) query.getResultList();
+			return resultado;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
 
 }

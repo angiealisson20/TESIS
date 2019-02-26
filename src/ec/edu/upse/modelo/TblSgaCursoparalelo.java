@@ -11,7 +11,11 @@ import java.util.List;
  */
 @Entity
 @Table(name="tbl_sga_cursoparalelo")
-@NamedQuery(name="TblSgaCursoparalelo.findAll", query="SELECT t FROM TblSgaCursoparalelo t")
+@NamedQueries({
+	@NamedQuery(name="TblSgaCursoparalelo.findAll", query="SELECT t FROM TblSgaCursoparalelo t"),
+	@NamedQuery(name="TblSgaCursoparalelo.buscarPorCurso", query="SELECT t FROM TblSgaCursoparalelo t where t.tblSgaPeriodoncurso.tblSgaCurso.curId = :idCurso")
+})
+
 public class TblSgaCursoparalelo implements Serializable {
 	private static final long serialVersionUID = 1L;
 

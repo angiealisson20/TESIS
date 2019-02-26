@@ -1,94 +1,171 @@
 package ec.edu.upse.controlador;
 
+import java.io.IOException;
 import java.util.List;
 
-
-import org.zkoss.bind.annotation.BindingParam;
-import org.zkoss.bind.annotation.Command;
+import org.zkoss.bind.annotation.AfterCompose;
+import org.zkoss.bind.annotation.ContextParam;
+import org.zkoss.bind.annotation.ContextType;
 import org.zkoss.bind.annotation.NotifyChange;
+import org.zkoss.zk.ui.Component;
 import org.zkoss.zk.ui.Executions;
 import org.zkoss.zk.ui.Sessions;
-import org.zkoss.zk.ui.util.Clients;
+import org.zkoss.zk.ui.event.Event;
+import org.zkoss.zk.ui.event.EventListener;
+import org.zkoss.zk.ui.event.Events;
+import org.zkoss.zk.ui.select.Selectors;
+import org.zkoss.zk.ui.select.annotation.Wire;
+import org.zkoss.zul.Include;
+import org.zkoss.zul.Tree;
+import org.zkoss.zul.Treecell;
+import org.zkoss.zul.Treechildren;
+import org.zkoss.zul.Treeitem;
+import org.zkoss.zul.Treerow;
 
 import ec.edu.upse.dao.OpcionDao;
+import ec.edu.upse.dao.UsuarioperfilDao;
 import ec.edu.upse.modelo.Opcion;
-import ec.edu.upse.modelo.Opcionperfil;
 import ec.edu.upse.util.SecurityUtil;
 
 public class MenuControlador {
 	
-	/**
-	 * Provee los datos para las opciones
-	 * @return
-	 */
-	public List<Opcion> getOpciones() {
-		OpcionDao opcionDao = new OpcionDao();
-		return opcionDao.getOpciones();
-		//return opcionDao.getOpcionesFiltradas();
+	private Opcion opcionSeleccionado;
+	private List<Opcion> listaOpcion;
+	private OpcionDao opcionDao = new OpcionDao();
+	private UsuarioperfilDao usuarioPerfilDao = new UsuarioperfilDao();
+	
+	@Wire
+	Tree menu;
+	
+	@Wire
+	Include areaContenido;
+	
+	@AfterCompose
+	public void aferCompose(@ContextParam(ContextType.VIEW) Component view) throws IOException{
+		Selectors.wireComponents(view, this, false);
+		loadTree();
 	}
 	
 
-	/**
-	 * Se ejecuta al dar click en la fila del grid
-	 * @param url
-	 */
-	@Command
-	@NotifyChange("formularioActual")
-	public void cargaUrl(@BindingParam("opcion") Opcion opcion) {
-		boolean tienePrivilegio = false; 
-
-		for (Opcionperfil opcionPerfil : opcion.getOpcionperfils()) {
+	public void loadTree() throws IOException{
+		
+		if(listaOpcion != null) {
+			listaOpcion = null;
+		}
+		
+		if(menu.getChildren() != null) {
+			menu.getChildren().clear();
+		}
+		
+		Integer id = usuarioPerfilDao.getUsuarioPorRol(SecurityUtil.getUser().getUsername().trim()); 
+		
+		if (id != null){
+			System.out.println("**** rol :" +id);
+			listaOpcion = opcionDao.getOpcionPadrePorPerfil(id);
+			if (listaOpcion.size()>0) {
+				menu.appendChild(getTreechildren(listaOpcion,id));   
+			}			
+		}
+		
+		listaOpcion = null;
 			
-			// Utilidad que permite verificar los privilegios del usuario actual.
-			if (SecurityUtil.isAnyGranted(opcionPerfil.getPerfil().getNombre())) {
-				tienePrivilegio = true;
-				break; 
+	}
+	
+	private Treechildren getTreechildren(List<Opcion> opciones, Integer idPerfil) {
+		Treechildren retorno = new Treechildren();
+		for(Opcion opcion:opciones) {
+			Treeitem ti = getTreeitem(opcion);
+			retorno.appendChild(ti);
+			List<Opcion> listaPadreHijo = opcionDao.getOpcionHijoPorPerfil(opcion.getIdOpcion(), idPerfil);
+			if (!listaPadreHijo.isEmpty()) {
+				ti.appendChild(getTreechildren(listaPadreHijo,idPerfil));
 			}
 		}
-		
-		if (tienePrivilegio) {
-			// Si comienza con "http" se entiende que es una URL
-			// de lo contrario es un formulario.
-			if (opcion.getUrl().substring(0, 4).toLowerCase().equals("http")) {
-				
-				// Limpia el atributo del formulario actual de la variable 
-				// de sesion
-				Sessions.getCurrent().setAttribute("FormularioActual", null);
-				Executions.getCurrent().sendRedirect(opcion.getUrl(), "_blank");	
-				
-			}else{
-				// Coloca el atributo del formulario actual en una variable 
-				// de sesion
-				Sessions.getCurrent().setAttribute("FormularioActual", opcion);
-			}
-		}else{
-			Clients.showNotification("No tiene privilegios para acceder a esta opcion.");
-		}
-		
+		return retorno;
+	}
 
+	
+	@SuppressWarnings({ "rawtypes", "deprecation", "unchecked" })
+	private Treeitem getTreeitem(Opcion opcion) {
+		Treeitem retorno = new Treeitem();
+		Treerow tr = new Treerow();
+		Treecell tc = new Treecell(opcion.getTitulo());
+		//System.out.println("titulomenu: " + tc);
+		if (opcion.getImagen() != null) {
+			//tc.setIconSclass(opcion.getImagen());
+			tc.setSrc(opcion.getImagen());
+		}
+	
+		tr.addEventListener(Events.ON_CLICK, new EventListener() {
+			@Override
+			public void onEvent(Event arg0) throws Exception {
+				// TODO Auto-generated method stub
+				opcionSeleccionado = opcion; 
+				if(opcionSeleccionado.getUrl() != null){
+					loadContenido(opcionSeleccionado);
+				}
+			}
+		});
+		
+		tr.appendChild(tc);
+		retorno.appendChild(tr);
+		retorno.setOpen(false);
+		return retorno;
 	}
 	
-	public String getFormularioActual() {
-		String url = null; 
-		// Recupera el formulario actual desde la variable de sesion
-		if (Sessions.getCurrent().getAttribute("FormularioActual") != null) {
-			url = ((Opcion)Sessions.getCurrent().getAttribute("FormularioActual")).getUrl();
-		}
-		return url; 
+	@NotifyChange({"areaContenido"})
+	public void loadContenido(Opcion opcion) {
+		
+		if (opcion.getUrl().toLowerCase().substring(0, 2).toLowerCase().equals("http")) {
+			Sessions.getCurrent().setAttribute("FormularioActual", null);
+			Executions.getCurrent().sendRedirect(opcion.getUrl(), "_blank");			
+		} else {
+			Sessions.getCurrent().setAttribute("FormularioActual", opcion);	
+			areaContenido.setSrc(opcion.getUrl());
+		}	
 		
 	}
-	
+		  	
 	/**
 	 * Retorna el nombre del usuario logoneado.
 	 * @return
 	 */
 	public String getNombreUsuario() {
-		String retorno = null; 
-		if (SecurityUtil.getUser() != null) {
-			retorno = SecurityUtil.getUser().getUsername();
-		}
-		return retorno;
+		return SecurityUtil.getUser().getUsername();
+	}
+	
+
+	public List<Opcion> getListaOpcion() {
+		return listaOpcion;
 	}
 
+	public void setListaOpcion(List<Opcion> listaOpcion) {
+		this.listaOpcion = listaOpcion;
+	}
+
+	public Tree getMenu() {
+		return menu;
+	}
+
+	public void setMenu(Tree menu) {
+		this.menu = menu;
+	}
+
+	public Include getAreaContenido() {
+		return areaContenido;
+	}
+
+	public void setAreaContenido(Include areaContenido) {
+		this.areaContenido = areaContenido;
+	}
+
+	public Opcion getOpcionSeleccionado() {
+		return opcionSeleccionado;
+	}
+
+	public void setOpcionSeleccionado(Opcion opcionSeleccionado) {
+		this.opcionSeleccionado = opcionSeleccionado;
+	}
+	
 
 }

@@ -1,0 +1,102 @@
+<?page title="" contentType="text/html;charset=UTF-8"?>
+<?script src="/webjars/bootstrap/4.0.0/js/bootstrap.min.js" ?>
+<?link rel="stylesheet" href="/webjars/bootstrap/4.0.0/css/bootstrap.min.css" ?>
+<zk>
+	<div apply="org.zkoss.bind.BindComposer"
+		viewModel="@id('vm') @init('ec.edu.upse.controlador.MenuControlador')"
+		height="100%">
+		<div sclass="container-fluid" height="100%">
+			<div sclass="row"
+				style="background-color:#102d35; color: white; padding: 0px 0px;"
+				height="137px">
+				<a href="http://www.jfk.edu.ec/" target="_blank">
+					<image src="/img/SISTEMA.png" width="1300px" />
+				</a>
+			</div>
+			<div sclass="row" vflex="1">
+				<!-- DATOS Y OPCIONES -->
+				<div sclass="col-3">
+					<div sclass="row">
+						<div width="350px">
+							<!-- PANEL USUARIO -->
+							<div class="panel panel-default"
+								style="border:1px;">
+								<!-- ENCABEZADO -->
+								<div class="panel-heading"
+									align="center" style="background:#050846; color: #fff;">
+									<label
+										value="¡Bienvenido al Sistema!" style="font-size:20px;"
+										class="font-weight-bold" />
+								</div>
+								<!-- CONTENIDO -->
+								<div class="panel-body"
+									style="border:3px;" align="center">
+									<vlayout>
+										
+										<hlayout
+											sclass="z-valign-center" spacing="24px">
+											<image src="/img/user.png"
+												height="40px"
+												style="display: flex; align-items: center; justify-content: center;" />
+											<label
+												value="@load(vm.nombreUsuario)"
+												style="margin-top: 15%;
+													font-size: 18px; outline: none; display: flex; 
+													align-items: center; justify-content: center;" />
+											<h:form id="f" name="f"
+												action="j_spring_security_logout" method="POST"
+												xmlns:h="native">
+												<html>
+													<input type="hidden"
+														name="${_csrf.parameterName}" value="${_csrf.token}" />
+												</html>
+												<button label="Salir"
+													type="submit" sclass="btn btn-outline-success"
+													style="color: #fff; font-size: 12px; background: #C40430; cursor: pointer;
+													border-radius: 25px; border: none; outline: none; margin-top: 18%; 
+													display: flex; align-items: center; justify-content: center;" />
+											</h:form>
+										</hlayout>
+									</vlayout>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div sclass="row" vflex="1">
+						<!-- OPCIONES -->
+						<div class="panel panel-default" vflex="1">
+							<!-- ENCABEZADO -->
+							<div class="panel-heading" align="center"
+								style="background:#050846; color: #fff;">
+								<label value="Opciones del Sistema"
+									style="font-size:20px;" class="font-weight-bold" />
+							</div>
+							<!-- CONTENIDO -->
+							<div class="panel-body" vflex="1">
+								<tree id="menu" vflex="1" />
+							</div>
+						</div>
+
+					</div>
+				</div>
+				<!-- AREA DE TRABAJO -->
+				<div sclass="col-9">
+					<div sclass="row" vflex="1">
+						<borderlayout>
+							<center>
+								<div hflex="1" vflex="1">
+									<include id="areaContenido" />
+								</div>
+							</center>
+						</borderlayout>
+					</div>
+
+				</div>
+			</div>
+
+		</div>
+
+	</div>
+
+
+</zk>

@@ -1,0 +1,87 @@
+<?page title="Lista de Horarios" contentType="text/html;charset=UTF-8"?>
+<?init class="org.zkoss.zkplus.databind.AnnotateDataBinderInit" arg0="./winHorario" ?>
+<zk>
+	<window id="winHorario" width="100%" vflex="1" border="normal"
+		apply="ec.edu.upse.lista.HorarioLista" position="center"
+		style="padding: 0 0 0 0;background:#050846;">
+		<caption label="Horario" height="25px"
+			style="background:#050846; color:white; font-size:20px; text-indent:15px"
+			sclass="p-1 mb text-white font-italic font-weight-bold font-color:white" />
+		<vlayout vflex="1">
+			<hlayout>
+				<vlayout>
+					<label value="Periodo" />
+					<combobox id="cboPeriodo"
+						model="@{winHorario$composer.periodos}" readonly="true">
+						<template name="model">
+							<comboitem
+								label="${each.perInicio} - ${each.perFin}" />
+						</template>
+					</combobox>
+				</vlayout>
+
+				<vlayout>
+					<label value="Niveles" />
+					<combobox id="cboNivel"
+						model="@{winHorario$composer.niveles}" readonly="true">
+						<template name="model">
+							<comboitem label="${each.nivelDesc}" />
+						</template>
+					</combobox>
+				</vlayout>
+
+				<vlayout>
+					<label value="Cursos" />
+					<combobox id="cboCursos"
+						model="@{winHorario$composer.cursos}" readonly="true">
+						<template name="model">
+							<comboitem label="${each.curDesc}" />
+						</template>
+					</combobox>
+				</vlayout>
+
+				<vlayout>
+					<label value="Paralelos" />
+					<combobox id="cboParalelo"
+						model="@{winHorario$composer.paralelos}" readonly="true">
+						<template name="model">
+							<comboitem label="${each.paralDesc}" />
+						</template>
+					</combobox>
+				</vlayout>
+				<vlayout>
+					<label value="" />
+					<button id="btnBuscar" label=""
+						iconSclass="z-icon-search" />
+				</vlayout>
+
+			</hlayout>
+			<hlayout vflex="1" hflex="1">
+				<listbox id="lstHorario" model="@{winHorario$composer.horarios}"
+					hflex="1" vflex="1">
+					<listhead>
+						<listheader label="Dia" />
+						<listheader label="Hora Inicio" />
+						<listheader label="Hora Fin" />
+						<listheader label="Materia" />
+						<listheader label="Docente" />
+						<listheader label="Aula" />
+					</listhead>
+					<template name="model">
+						<listitem>
+							<listcell label="${each.tblSgaDia.diaDescripcion}" />
+							<listcell label="${each.tblSgaHora.hrsInicio}" />
+							<listcell label="${each.tblSgaHora.hrsFin}" />
+							<listcell label="${each.tblSgaDistributivo.tblSgaMatcurso.tblSgaMateria.matDesc}" />
+							<listcell label="${each.tblSgaDistributivo.tblSgaDocente.docenteNoms}" />
+							<listcell label="${each.tblSgaEspaciofisico.esfDescripcion}" />
+						</listitem>
+					</template>
+				</listbox>
+			</hlayout>
+
+		</vlayout>
+
+	</window>
+
+</zk>
