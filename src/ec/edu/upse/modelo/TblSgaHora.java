@@ -63,20 +63,26 @@ public class TblSgaHora implements Serializable {
 		this.hrsDescripcion = hrsDescripcion;
 	}
 
-	public Time getHrsFin() {
-		return this.hrsFin;
+	public String getHrsFin() {
+		System.out.println("Hola: " + this.hrsFin.toString());
+		return this.hrsFin.toString();
 	}
 
-	public void setHrsFin(Time hrsFin) {
-		this.hrsFin = hrsFin;
+	public void setHrsFin(String hrsFin) {
+		Time time = Time.valueOf(hrsFin);
+		System.out.println(time);
+		this.hrsFin = time;
 	}
 
-	public Time getHrsInicio() {
-		return this.hrsInicio;
+	public String getHrsInicio() {
+		System.out.println("Hola: " + this.hrsInicio.toString());
+		return this.hrsInicio.toString();
 	}
 
-	public void setHrsInicio(Time hrsInicio) {
-		this.hrsInicio = hrsInicio;
+	public void setHrsInicio(String hrsInicio) {
+		Time time = Time.valueOf(hrsInicio);
+		System.out.println(time);
+		this.hrsInicio = time;
 	}
 
 	public List<TblSgaHorario> getTblSgaHorarios() {

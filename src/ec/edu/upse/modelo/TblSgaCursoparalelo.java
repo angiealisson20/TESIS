@@ -13,7 +13,9 @@ import java.util.List;
 @Table(name="tbl_sga_cursoparalelo")
 @NamedQueries({
 	@NamedQuery(name="TblSgaCursoparalelo.findAll", query="SELECT t FROM TblSgaCursoparalelo t"),
-	@NamedQuery(name="TblSgaCursoparalelo.buscarPorCurso", query="SELECT t FROM TblSgaCursoparalelo t where t.tblSgaPeriodoncurso.tblSgaCurso.curId = :idCurso")
+	@NamedQuery(name="TblSgaCursoparalelo.buscarPorCurso", query="SELECT t FROM TblSgaCursoparalelo t where t.tblSgaPeriodoncurso.tblSgaCurso.curId = :idCurso"),
+	@NamedQuery(name="TblSgaCursoparalelo.buscarPorParalelo", query="SELECT t FROM TblSgaCursoparalelo t where t.tblSgaParalelo.paralId = :idParalelo"),
+	@NamedQuery(name="TblSgaCursoparalelo.findByParaleloCurso", query="SELECT t FROM TblSgaCursoparalelo t where t.tblSgaParalelo = :par and t.tblSgaPeriodoncurso.tblSgaCurso = :cur")
 })
 
 public class TblSgaCursoparalelo implements Serializable {

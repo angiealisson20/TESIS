@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.6.0.final using JasperReports Library version 6.6.0  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="prueba" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="bdf05d12-db61-425a-9a69-2ec507365438">
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="angie conexion"/>
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<parameter name="curso" class="java.lang.Integer"/>
+	<queryString>
+		<![CDATA[SELECT ho.hrs_inicio,
+	ho.hrs_fin,
+	m.mat_desc
+FROM tbl_sga_horario h,
+	tbl_sga_hora ho,
+	tbl_sga_dia d,
+	tbl_sga_espaciofisico e,
+	tbl_sga_curso c,
+	tbl_sga_nivel n,
+	tbl_sga_paralelo p,
+	tbl_sga_materia m,
+	tbl_sga_docente dc,
+	tbl_sga_distributivo dt,
+	tbl_sga_matcurso mc,
+	tbl_sga_periodonivel pn,
+	tbl_sga_periodolectivo pl,
+	tbl_sga_periodoncurso pc,
+	tbl_sga_cursoparalelo cp
+WHERE 
+	 h.hor_dia_id_fk = d.dia_id_pk 
+	 AND h.hor_esf_id_fk = e.esf_id_pk 
+	 AND h.hor_hrs_id_fk = ho.hrs_id_pk 
+	 AND h.hor_distributivo_fk = dt.dist_id 
+	 AND pn.periodo_fk = pl.per_id 
+	 AND pc.curso_fk = c.cur_id 
+	 AND pc.perniv_fk = pn.perniv_id 
+	 AND p.paral_id = cp.paralelo_fk 
+	 AND pc.pernivcur_id = cp.pernivcur_fk 
+	 AND m.mat_id = mc.materia_fk 
+	 AND mc.pernivcur_id_fk = pc.pernivcur_id 
+	 AND dt.matcurso_fk = mc.matcurso_id 
+	 AND dt.docente_fk = dc.docente_id 
+	 AND c.cur_id = $P{curso}]]>
+	</queryString>
+	<field name="hrs_inicio" class="java.sql.Time">
+		<property name="com.jaspersoft.studio.field.label" value="hrs_inicio"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="tbl_sga_hora"/>
+	</field>
+	<field name="hrs_fin" class="java.sql.Time">
+		<property name="com.jaspersoft.studio.field.label" value="hrs_fin"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="tbl_sga_hora"/>
+	</field>
+	<field name="mat_desc" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="mat_desc"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="tbl_sga_materia"/>
+	</field>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="79" splitType="Stretch"/>
+	</title>
+	<pageHeader>
+		<band height="35" splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="30" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="80" height="30" uuid="aa1ede68-6a87-4e59-a4a8-3af32c02dd6d">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="d359ff34-b11e-411b-9177-6fe47395b0b1"/>
+				</reportElement>
+				<text><![CDATA[hrs_inicio]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="90" y="0" width="90" height="30" uuid="e3758db1-3566-423d-bb0d-3e509387298f">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="c572b958-3893-4f3d-8ef1-7772c073bbc0"/>
+				</reportElement>
+				<text><![CDATA[hrs_fin]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="190" y="0" width="90" height="30" uuid="5cf717ef-1429-4090-8701-6c2401569c0f">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="6d6404be-ab8e-40dc-9915-c5775c36d388"/>
+				</reportElement>
+				<text><![CDATA[mat_desc]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="40" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="10" width="80" height="30" uuid="89e40f13-d3c8-44d0-94d5-f38079f589c4">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="d359ff34-b11e-411b-9177-6fe47395b0b1"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$F{hrs_inicio}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="90" y="10" width="90" height="30" uuid="0e48a36e-bd92-4526-bd39-3262202c369b">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="c572b958-3893-4f3d-8ef1-7772c073bbc0"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$F{hrs_fin}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="190" y="10" width="90" height="30" uuid="3819986c-7803-402e-ab46-078344197129">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="6d6404be-ab8e-40dc-9915-c5775c36d388"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$F{mat_desc}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>

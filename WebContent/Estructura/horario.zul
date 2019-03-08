@@ -39,7 +39,6 @@
 						</template>
 					</combobox>
 				</vlayout>
-
 				<vlayout>
 					<label value="Paralelos" />
 					<combobox id="cboParalelo"
@@ -50,36 +49,184 @@
 					</combobox>
 				</vlayout>
 				<vlayout>
-					<label value="" />
+					<label value="-" />
 					<button id="btnBuscar" label=""
-						iconSclass="z-icon-search" />
+						iconSclass="z-icon-search" style="width:55px; " />
+				</vlayout>
+				<vlayout>
+					<label value="-" />
+					<button id="btnEditar" label=""
+						iconSclass="z-icon-pencil" style="width:55px; " />
+				</vlayout>
+				<vlayout>
+					<label value="-" />
+					<button id="btnNuevo" label=""
+						iconSclass="z-icon-file" style="width:55px;" />
+				</vlayout>
+				<vlayout>
+					<label value="-" />
+					<button id="btnImprimir" label=""
+						iconSclass="z-icon-file" style="width:55px;" />
 				</vlayout>
 
 			</hlayout>
 			<hlayout vflex="1" hflex="1">
-				<listbox id="lstHorario" model="@{winHorario$composer.horarios}"
-					hflex="1" vflex="1">
-					<listhead>
-						<listheader label="Dia" />
-						<listheader label="Hora Inicio" />
-						<listheader label="Hora Fin" />
-						<listheader label="Materia" />
-						<listheader label="Docente" />
-						<listheader label="Aula" />
-					</listhead>
-					<template name="model">
-						<listitem>
-							<listcell label="${each.tblSgaDia.diaDescripcion}" />
-							<listcell label="${each.tblSgaHora.hrsInicio}" />
-							<listcell label="${each.tblSgaHora.hrsFin}" />
-							<listcell label="${each.tblSgaDistributivo.tblSgaMatcurso.tblSgaMateria.matDesc}" />
-							<listcell label="${each.tblSgaDistributivo.tblSgaDocente.docenteNoms}" />
-							<listcell label="${each.tblSgaEspaciofisico.esfDescripcion}" />
-						</listitem>
-					</template>
-				</listbox>
-			</hlayout>
+				<tabbox vflex="1">
 
+					<tabs>
+						<tab label="Lunes" width="150px"/>
+						<tab label="Martes" width="150px" />
+						<tab label="Miercoles" width="150px" />
+						<tab label="Jueves" width="150px" />
+						<tab label="Viernes" width="150px" />
+					</tabs>
+
+					<tabpanels>
+
+						<tabpanel >
+							<listbox id="lstHorario1"
+								model="@{winHorario$composer.horariosLunes}" hflex="1"
+								vflex="1">
+								<listhead>
+									<listheader label="Hora Inicio" />
+									<listheader label="Hora Fin" />
+									<listheader label="Materia" />
+									<listheader label="Docente" />
+									<listheader label="Aula" />
+								</listhead>
+								<template name="model">
+									<listitem>
+										<listcell
+											label="${each.tblSgaHora.hrsInicio}" />
+										<listcell
+											label="${each.tblSgaHora.hrsFin}" />
+										<listcell
+											label="${each.tblSgaDistributivo.tblSgaMatcurso.tblSgaMateria.matDesc}" />
+										<listcell
+											label="${each.tblSgaDistributivo.tblSgaDocente.docenteNom}" />
+										<listcell
+											label="${each.tblSgaEspaciofisico.esfDescripcion}" />
+									</listitem>
+								</template>
+							</listbox>
+						</tabpanel>
+
+						<tabpanel>
+							<listbox id="lstHorario2"
+								model="@{winHorario$composer.horariosMartes}" hflex="1"
+								vflex="1">
+								<listhead>
+									<listheader label="Hora Inicio" />
+									<listheader label="Hora Fin" />
+									<listheader label="Materia" />
+									<listheader label="Docente" />
+									<listheader label="Aula" />
+								</listhead>
+								<template name="model">
+									<listitem>
+										<listcell
+											label="${each.tblSgaHora.hrsInicio}" />
+										<listcell
+											label="${each.tblSgaHora.hrsFin}" />
+										<listcell
+											label="${each.tblSgaDistributivo.tblSgaMatcurso.tblSgaMateria.matDesc}" />
+										<listcell
+											label="${each.tblSgaDistributivo.tblSgaDocente.docenteNom}" />
+										<listcell
+											label="${each.tblSgaEspaciofisico.esfDescripcion}" />
+									</listitem>
+								</template>
+							</listbox>
+						</tabpanel>
+
+						<tabpanel>
+							<listbox id="lstHorario3"
+								model="@{winHorario$composer.horariosMiercoles}" hflex="1"
+								vflex="1">
+								<listhead>
+									<listheader label="Hora Inicio" />
+									<listheader label="Hora Fin" />
+									<listheader label="Materia" />
+									<listheader label="Docente" />
+									<listheader label="Aula" />
+								</listhead>
+								<template name="model">
+									<listitem>
+										<listcell
+											label="${each.tblSgaHora.hrsInicio}" />
+										<listcell
+											label="${each.tblSgaHora.hrsFin}" />
+										<listcell
+											label="${each.tblSgaDistributivo.tblSgaMatcurso.tblSgaMateria.matDesc}" />
+										<listcell
+											label="${each.tblSgaDistributivo.tblSgaDocente.docenteNom}" />
+										<listcell
+											label="${each.tblSgaEspaciofisico.esfDescripcion}" />
+									</listitem>
+								</template>
+							</listbox>
+						</tabpanel>
+
+						<tabpanel>
+							<listbox id="lstHorario4"
+								model="@{winHorario$composer.horariosJueves}" hflex="1"
+								vflex="1">
+								<listhead>
+									<listheader label="Hora Inicio" />
+									<listheader label="Hora Fin" />
+									<listheader label="Materia" />
+									<listheader label="Docente" />
+									<listheader label="Aula" />
+								</listhead>
+								<template name="model">
+									<listitem>
+										<listcell
+											label="${each.tblSgaHora.hrsInicio}" />
+										<listcell
+											label="${each.tblSgaHora.hrsFin}" />
+										<listcell
+											label="${each.tblSgaDistributivo.tblSgaMatcurso.tblSgaMateria.matDesc}" />
+										<listcell
+											label="${each.tblSgaDistributivo.tblSgaDocente.docenteNom}" />
+										<listcell
+											label="${each.tblSgaEspaciofisico.esfDescripcion}" />
+									</listitem>
+								</template>
+							</listbox>
+						</tabpanel>
+
+						<tabpanel>
+							<listbox id="lstHorario5"
+								model="@{winHorario$composer.horariosViernes}" hflex="1"
+								vflex="1">
+								<listhead>
+									<listheader label="Hora Inicio" />
+									<listheader label="Hora Fin" />
+									<listheader label="Materia" />
+									<listheader label="Docente" />
+									<listheader label="Aula" />
+								</listhead>
+								<template name="model">
+									<listitem>
+										<listcell
+											label="${each.tblSgaHora.hrsInicio}" />
+										<listcell
+											label="${each.tblSgaHora.hrsFin}" />
+										<listcell
+											label="${each.tblSgaDistributivo.tblSgaMatcurso.tblSgaMateria.matDesc}" />
+										<listcell
+											label="${each.tblSgaDistributivo.tblSgaDocente.docenteNom}" />
+										<listcell
+											label="${each.tblSgaEspaciofisico.esfDescripcion}" />
+									</listitem>
+								</template>
+							</listbox>
+						</tabpanel>
+
+					</tabpanels>
+
+				</tabbox>
+			</hlayout>
 		</vlayout>
 
 	</window>

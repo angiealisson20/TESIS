@@ -6,7 +6,6 @@ import java.util.List;
 import javax.persistence.Query;
 
 import ec.edu.upse.modelo.TblSgaNivel;
-import ec.edu.upse.modelo.TblSgaPeriodolectivo;
 
 public class NivelDao extends ClaseDao{
 	@SuppressWarnings("unchecked")

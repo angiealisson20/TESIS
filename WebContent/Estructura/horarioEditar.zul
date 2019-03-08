@@ -1,0 +1,114 @@
+<?init class="org.zkoss.zkplus.databind.AnnotateDataBinderInit" arg0="./winHorarioEditar" ?>
+<zk>
+	<window id="winHorarioEditar" border="normal" width="350px"
+		apply="ec.edu.upse.editar.HorarioEditar"
+		style="padding: 0 0 0 0;background:#050846;" position="center">
+		<caption label="Ingresar Horarios" height="20px"
+			style="background:050846; font-size:20px; color:white; text-indent:15px;"
+			sclass="p-1 mb text-white font-italic font-weight-bold" />
+		<vlayout>
+			<grid>
+				<columns>
+					<column align="right" hflex="min" />
+					<column align="left" hflex="1" />
+				</columns>
+				<rows>
+
+					<row>
+						<label value="Dia : * " style="font-size:15px" />
+						<combobox placeholder="Seleccione el dia"
+							model="@{winHorarioEditar$composer.dias}"
+							selectedItem="@{winHorarioEditar$composer.horario.tblSgaDia}"
+							value="@{winHorarioEditar$composer.horario.tblSgaDia.diaDescripcion}"
+							width="200px">
+							<template name="model">
+								<comboitem
+									label="${each.diaDescripcion}" />
+							</template>
+						</combobox>
+					</row>
+					<row>
+						<label value="Hora inicio: * "
+							style="font-size:15px" />
+						<combobox placeholder="Seleccione hora inicio"
+							model="@{winHorarioEditar$composer.horas}"
+							selectedItem="@{winHorarioEditar$composer.horario.tblSgaHora}"
+							value="@{winHorarioEditar$composer.horario.tblSgaHora.hrsInicio}"
+							width="200px">
+							<template name="model">
+								<comboitem label="${each.hrsInicio}" />
+							</template>
+						</combobox>
+					</row>
+					<row>
+						<label value="Hora fin: * "
+							style="font-size:15px" />
+						<combobox placeholder="Seleccione hora fin"
+							model="@{winHorarioEditar$composer.horas}"
+							selectedItem="@{winHorarioEditar$composer.horario.tblSgaHora}"
+							value="@{winHorarioEditar$composer.horario.tblSgaHora.hrsFin}"
+							width="200px">
+							<template name="model">
+								<comboitem label="${each.hrsFin}" />
+							</template>
+						</combobox>
+					</row>
+					<row>
+						<label value="Materia : *"
+							style="font-size:15px" />
+						<combobox id="cboMateria"
+							placeholder="Seleccione materia"
+							model="@{winHorarioEditar$composer.materias}" readonly="true"
+							width="200px">
+							<template name="model">
+								<comboitem label="${each.matDesc}" />
+							</template>
+						</combobox>
+					</row>
+					<row>
+						<label value="Docente : *"
+							style="font-size:15px" />
+						<combobox id="cboDocente"
+							placeholder="Seleccione docente"
+							model="@{winHorarioEditar$composer.docente}" readonly="true"
+							width="200px">
+							<template name="model">
+								<comboitem
+									label="${each.docenteNom} ${each.docenteAp}" />
+							</template>
+						</combobox>
+					</row>
+					<row>
+						<label value="Aula : * " style="font-size:15px" />
+						<combobox placeholder="Seleccione el aula"
+							model="@{winHorarioEditar$composer.espfisico}"
+							selectedItem="@{winHorarioEditar$composer.horario.tblSgaEspaciofisico}"
+							value="@{winHorarioEditar$composer.horario.tblSgaEspaciofisico.esfDescripcion}"
+							width="200px">
+							<template name="model">
+								<comboitem
+									label="${each.esfDescripcion}" />
+							</template>
+						</combobox>
+					</row>
+					<row>
+						<label value="Observacion : * "
+							style="font-size:15px" />
+						<textbox id="observacion" 
+							value="@{winHorarioEditar$composer.horario.horObservacion}"
+							style="font-size:15px" multiline="true" hflex="1" height="200px" />
+					</row>
+
+				</rows>
+			</grid>
+			<hlayout>
+				<button id="grabar" label="Grabar"
+					iconSclass="z-icon-save"
+					zclass="btn btn-outline-primary btn btn-sm" />
+				<button id="salir" label="Salir"
+					iconSclass="z-icon-sign-out"
+					zclass="btn btn-outline-primary btn btn-sm" />
+			</hlayout>
+		</vlayout>
+	</window>
+</zk>

@@ -5,10 +5,8 @@ import java.util.List;
 
 import javax.persistence.Query;
 
-import ec.edu.upse.modelo.TblSgaCursoparalelo;
+
 import ec.edu.upse.modelo.TblSgaHorario;
-import ec.edu.upse.modelo.TblSgaPeriodonivel;
-import ec.edu.upse.modelo.Usuario;
 
 public class HorarioDao extends ClaseDao {
 
@@ -24,7 +22,7 @@ public class HorarioDao extends ClaseDao {
 
 
 	@SuppressWarnings("unchecked")
-	public List<TblSgaHorario> getObtenerConsulta(Integer idPeriodo,  Integer idNivel, Integer idCurso, Integer idParalelo){
+	public List<TblSgaHorario> getObtenerConsulta(Integer idPeriodo,  Integer idNivel, Integer idCurso, Integer idParalelo, Integer idDia){
 		List<TblSgaHorario> resultado;
 		Query query = getEntityManager().createNamedQuery("TblSgaHorario.BuscaPorConsulta");
 		query.setHint("javax.persistence.cache.storeMode", "REFRESH");
@@ -32,12 +30,11 @@ public class HorarioDao extends ClaseDao {
 		query.setParameter("idPeriodo", idPeriodo);
 		query.setParameter("idCurso", idCurso);
 		query.setParameter("idNivel", idNivel);
+		query.setParameter("idDia", idDia);
 		resultado = (List<TblSgaHorario>) query.getResultList();
 
 		return resultado;
 	}
-	
-	
 	
 	
 

@@ -1,0 +1,46 @@
+<zk>
+	<window id="winListaDistributivo" width="100%" vflex="1"
+		border="normal" apply="ec.edu.upse.lista.DistributivoLista" position="center"
+		style="padding: 0 0 0 0;background:#050846;">
+		<caption label="Lista de Distributivo" height="25px"
+			style="background:#050846; color:white; font-size:20px; text-indent:15px"
+			sclass="p-1 mb text-white font-italic font-weight-bold font-color:white" />
+		<vlayout vflex="1">
+			<div>
+				<toolbar style="font-size:15px;">
+					<toolbarbutton id="btnNuevo" label="Nuevo"
+						iconSclass="z-icon-plus" />
+					<toolbarbutton id="btnEditar" label="Editar"
+						iconSclass="z-icon-pencil" />
+					<toolbarbutton id="btnEliminar" label="Eliminar"
+						iconSclass="z-icon-trash-o" />
+				</toolbar>
+			</div>
+			<hlayout>
+				<textbox id="txtBuscar" hflex="1" height="30px" />
+				<button id="btnBuscar" label="" height="30px" iconSclass="z-icon-search"
+					zclass="btn btn-outline-primary btn btn-sm" />
+			</hlayout>
+			<hlayout vflex="1" hflex="1">
+				<listbox id="lstDistributivo" style="font-size:20px;"
+					model="@{winListaDistributivo$composer.distributivo}"
+					selectedItem="@{winListaDistributivo$composer.distributivoSeleccionado}"
+					hflex="1" vflex="1">
+					<listhead>
+						<listheader label="Materia" />
+						<listheader label="Curso" />
+						<listheader label="Docente" />
+					</listhead>
+					<template name="model">
+						<listitem>
+							<listcell label="${each.tblSgaMatcurso.tblSgaMateria.matDesc}" />
+							<listcell label="${each.tblSgaMatcurso.tblSgaPeriodoncurso.tblSgaCurso.curDesc}" />
+							<listcell label="${each.tblSgaDocente.docenteNom}  ${each.tblSgaDocente.docenteAp}" />
+						</listitem>
+					</template>
+				</listbox>
+			</hlayout>
+		</vlayout>
+	</window>
+
+</zk>

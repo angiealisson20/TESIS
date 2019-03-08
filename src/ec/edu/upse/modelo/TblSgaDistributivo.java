@@ -11,7 +11,13 @@ import java.util.List;
  */
 @Entity
 @Table(name="tbl_sga_distributivo")
-@NamedQuery(name="TblSgaDistributivo.findAll", query="SELECT t FROM TblSgaDistributivo t")
+@NamedQueries({
+	@NamedQuery(name="TblSgaDistributivo.findAll", query="SELECT t FROM TblSgaDistributivo t"),
+	@NamedQuery(name="TblSgaDistributivo.findByDocenteAndMateria", query="SELECT t FROM TblSgaDistributivo t where t.tblSgaDocente = :doc and t.tblSgaMatcurso.tblSgaMateria = :mat"),
+	@NamedQuery(name="TblSgaDistributivo.buscarPorMateria", query="SELECT t FROM TblSgaDistributivo t where t.tblSgaMatcurso.tblSgaMateria.matId = :idMateria"),
+	@NamedQuery(name="TblSgaDistributivo.buscarPorPatron", query="SELECT t FROM TblSgaDistributivo t WHERE lower(t.tblSgaMatcurso.tblSgaMateria.matDesc) like lower(:patron)")
+})
+
 public class TblSgaDistributivo implements Serializable {
 	private static final long serialVersionUID = 1L;
 

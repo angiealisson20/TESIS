@@ -6,7 +6,6 @@ import java.util.List;
 import javax.persistence.Query;
 
 import ec.edu.upse.modelo.TblSgaPeriodoncurso;
-import ec.edu.upse.modelo.TblSgaPeriodonivel;
 
 public class PeriodoCursoDao extends ClaseDao{
 	@SuppressWarnings("unchecked")

@@ -1,0 +1,68 @@
+<zk>
+	<window id="winDistributivoEditar" border="normal" width="350px"
+		apply="ec.edu.upse.editar.DistributivoEditar"
+		style="padding: 0 0 0 0;background:#050846;" position="center">
+		<caption label="Ingresar Distributivo" height="20px"
+			style="background:050846; font-size:20px; color:white; text-indent:15px;"
+			sclass="p-1 mb text-white font-italic font-weight-bold" />
+		<vlayout>
+			<grid>
+				<columns>
+					<column align="right" hflex="min" />
+					<column align="left" hflex="1" />
+				</columns>
+				<rows>
+
+					<row>
+						<label value="Docente : * "
+							style="font-size:15px" />
+						<combobox placeholder="Seleccione docente"
+							model="@{winDistributivoEditar$composer.docente}"
+							selectedItem="@{winDistributivoEditar$composer.distributivo.tblSgaDocente}"
+							value="@{winDistributivoEditar$composer.distributivo.tblSgaDocente.docenteNom}"
+							width="200px">
+							<template name="model">
+								<comboitem
+									label="${each.docenteNom}" />
+							</template>
+						</combobox>
+					</row>
+					<row>
+						<label value="Materia: * "
+							style="font-size:15px" />
+						<combobox placeholder="Seleccione materia"
+							model="@{winDistributivoEditar$composer.materias}"
+							selectedItem="@{winDistributivoEditar$composer.distributivo.tblSgaMatcurso}"
+							value="@{winDistributivoEditar$composer.distributivo.tblSgaMatcurso.tblSgaMateria.matDesc}"
+							width="200px">
+							<template name="model">
+								<comboitem label="${each.matDesc}" />
+							</template>
+						</combobox>
+					</row>
+					<row>
+						<label value="Curso * "
+							style="font-size:15px" />
+						<combobox placeholder="Seleccione curso"
+							model="@{winDistributivoEditar$composer.cursos}"
+							selectedItem="@{winDistributivoEditar$composer.distributivo.tblSgaMatcurso}"
+							value="@{winDistributivoEditar$composer.distributivo.tblSgaMatcurso.tblSgaPeriodoncurso.tblSgaCurso.curDesc}"
+							width="200px">
+							<template name="model">
+								<comboitem label="${each.curDesc}" />
+							</template>
+						</combobox>
+					</row>
+				</rows>
+			</grid>
+			<hlayout>
+				<button id="grabar" label="Grabar"
+					iconSclass="z-icon-save"
+					zclass="btn btn-outline-primary btn btn-sm" />
+				<button id="salir" label="Salir"
+					iconSclass="z-icon-sign-out"
+					zclass="btn btn-outline-primary btn btn-sm" />
+			</hlayout>
+		</vlayout>
+	</window>
+</zk>

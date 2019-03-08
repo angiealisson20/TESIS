@@ -6,7 +6,6 @@ import java.util.List;
 import javax.persistence.Query;
 
 import ec.edu.upse.modelo.TblSgaDia;
-import ec.edu.upse.modelo.Usuario;
 
 public class DiasDao extends ClaseDao {
 	

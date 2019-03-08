@@ -15,7 +15,8 @@
 					<row>
 						<label value="Usuario : * " style="font-size:15px" />
 						<combobox placeholder="Seleccione usuario"
-							model="@{winUPE$composer.usuarioperfiles}" selectedItem="@{winUPE$composer.usuarioperfil.usuario}"
+							model="@{winUPE$composer.usuarioperfil}" 
+							selectedItem="@{winUPE$composer.usuarioperfil.usuario}"
 							value="@{winUPE$composer.usuarioperfil.usuario.usuario}" width="200px">
 							<template name="model">
 								<comboitem label="${each.usuario}" />
@@ -25,7 +26,8 @@
 					<row>
 						<label value="Perfil : * " style="font-size:15px" />
 						<combobox placeholder="Seleccione perfil"
-							model="@{winUPE$composer.usuarioperfiles}" selectedItem="@{winUPE$composer.usuarioperfil.perfil}"
+							model="@{winUPE$composer.usuarioperfil}" 
+							selectedItem="@{winUPE$composer.usuarioperfil.perfil}"
 							value="@{winUPE$composer.usuarioperfil.perfil.nombre}" width="200px">
 							<template name="model">
 								<comboitem label="${each.nombre}" />

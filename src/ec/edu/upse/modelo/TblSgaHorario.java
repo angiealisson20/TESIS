@@ -17,8 +17,8 @@ import java.util.List;
 	@NamedQuery(name="TblSgaHorario.BuscaPorConsulta", query="SELECT t FROM TblSgaHorario t "
 			+ "where t.tblSgaCursoparalelo.tblSgaPeriodoncurso.tblSgaPeriodonivel.tblSgaPeriodolectivo.perId = :idPeriodo and "
 			+ "t.tblSgaCursoparalelo.tblSgaPeriodoncurso.tblSgaPeriodonivel.tblSgaNivel.nivelId = :idNivel and "
-			+ "t.tblSgaCursoparalelo.tblSgaPeriodoncurso.tblSgaCurso.curId = :idCurso and t.tblSgaCursoparalelo.tblSgaParalelo.paralId = :idParalelo")
-})
+			+ "t.tblSgaCursoparalelo.tblSgaPeriodoncurso.tblSgaCurso.curId = :idCurso and t.tblSgaCursoparalelo.tblSgaParalelo.paralId = :idParalelo and t.tblSgaDia.diaIdPk = :idDia")
+	})
 
 public class TblSgaHorario implements Serializable {
 	private static final long serialVersionUID = 1L;

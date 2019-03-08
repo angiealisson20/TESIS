@@ -20,10 +20,10 @@
 						<div width="350px">
 							<!-- PANEL USUARIO -->
 							<div class="panel panel-default"
-								style="border:1px;">
+								style="border:1px;" vflex="1">
 								<!-- ENCABEZADO -->
 								<div class="panel-heading"
-									align="center" style="background:#050846; color: #fff;">
+									align="center" style="background:#050846; color: #fff;" vflex="1">
 									<label
 										value="¡Bienvenido al Sistema!" style="font-size:20px;"
 										class="font-weight-bold" />

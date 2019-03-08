@@ -32,7 +32,7 @@ public class TblSgaEspaciofisico implements Serializable {
 	private String estado;
 
 	//bi-directional many-to-one association to TblSgaHorario
-	@OneToMany(mappedBy="tblSgaEspaciofisico")
+	@OneToMany(mappedBy="tblSgaEspaciofisico", cascade = CascadeType.ALL)
 	private List<TblSgaHorario> tblSgaHorarios;
 
 	public TblSgaEspaciofisico() {
